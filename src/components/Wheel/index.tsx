@@ -203,6 +203,14 @@ export const Wheel = ({
     setIsDataUpdated(true);
   }, [data, backgroundColors, textColors]);
 
+  // Re-apply starting option when prop changes after initial mount
+  useEffect(() => {
+    if (isDataUpdated && Array.isArray(prizeMap) && prizeMap.length > 0) {
+      setStartingOption(startingOptionIndex, prizeMap);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startingOptionIndex, isDataUpdated, rouletteUpdater]);
+
   useEffect(() => {
     if (mustStartSpinning && !isCurrentlySpinning) {
       setIsCurrentlySpinning(true);
